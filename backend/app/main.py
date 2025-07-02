@@ -4,6 +4,8 @@ AI Agent Platform - Main FastAPI Application
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from .routers import auth, users, agents
+
 app = FastAPI(
     title="AI Agent Platform API",
     description="Internal AI Agent Platform for workflow automation and assistance",
@@ -18,6 +20,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include routers
+app.include_router(auth.router, prefix="/api/v1")
+app.include_router(users.router, prefix="/api/v1")
+app.include_router(agents.router, prefix="/api/v1")
 
 
 @app.get("/")

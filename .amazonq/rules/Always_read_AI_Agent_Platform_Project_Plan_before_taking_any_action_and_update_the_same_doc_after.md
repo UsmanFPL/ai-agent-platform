@@ -1,0 +1,1 @@
+Always read /Users/usmanhafiz/Documents/AAP/AI_Agent_Platform_Project_Plan.md before taking any action or making every change and update the file after every change is made

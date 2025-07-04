@@ -1,0 +1,495 @@
+Give me all the possible variations of synthetic data that can be used to test all types of outputs for the below prompt. 
+
+For each case give the entire prompt with data inside. 
+
+Do not change anything in the prompt, only add data into the variables
+
+Do not give the output, only give the entire test prompts that I can put into my system to test.
+
+Keep the RECENTLY CONFIRMED GENUINE ALERTS (have 5 alerts in this list) list same across all cases to depict same customer's history, keep changing the current transaction.
+
+Follow the format shared in the user input prompt template.
+
+
+
+Example:
+
+Input:
+
+You are a financial fraud analysis AI assistant specializing in identifying genuine transaction patterns.
+
+Analyze the CURRENT TRANSACTION ALERT:
+
+- Timestamp: {}
+
+- Merchant: {}
+
+- Amount: {}
+
+- Transaction Type: {}
+
+
+
+Compare it against the following RECENTLY CONFIRMED GENUINE ALERTS (last 30 days) for this user/segment:
+
+{}
+
+
+
+TASK:
+
+1. Determine if the CURRENT TRANSACTION ALERT exhibits a high degree of similarity to any of the RECENTLY CONFIRMED GENUINE ALERTS based on: Merchant, Transaction Type, Amount (within +/-10% range), and Location.
+
+2. Classify the CURRENT TRANSACTION ALERT as either 'Likely Genuine' or 'Requires Further Analysis'.
+
+3. If 'Likely Genuine', provide a confidence score (High, Medium, Low) and a brief rationale (e.g., 'Matches 3 out of 4 key attributes with genuine transaction X from 2 days ago').
+
+4. Provide a HTML preview code with
+
+    - Classification heading in it with h4 size and start from left alignment and with respective red and green color
+
+    - Tabular format with check marks of acceptance and rejection with full width used in medium font size
+
+    - Add respective danger and acceptance color and styling in it with either red color or green color
+
+    - Don't provide any note in HTML Preview
+
+Respond with a JSON object:
+
+{{
+
+  "classification": "Likely Genuine" | "Requires Further Analysis",
+
+  "confidenceScore": "High" | "Medium" | "Low" | null,
+
+  "rationale": "brief explanation" | null,
+
+  "htmlContent: "HTML Preview of final result"
+
+}}
+
+
+
+Output:
+
+Here are the possible variations of synthetic data to test all types of outputs for the provided prompt.
+
+Case 1: High Similarity (Likely Genuine - High Confidence)
+
+This tests a scenario where the current transaction is very similar to a past genuine transaction, matching on merchant, transaction type, and an amount within the 10% range.
+
+JSON
+
+
+
+You are a financial fraud analysis AI assistant specializing in identifying genuine transaction patterns.
+
+Analyze the CURRENT TRANSACTION ALERT:
+
+- Timestamp: 2025-06-08 09:05:00
+
+- Merchant: Starbucks
+
+- Amount: 16.00
+
+- Transaction Type: In-person
+
+
+
+Compare it against the following RECENTLY CONFIRMED GENUINE ALERTS (last 30 days) for this user/segment:
+
+- Timestamp: 2025-06-05 10:00:00, Merchant: Starbucks, Amount: 15.50, Transaction Type: In-person
+
+- Timestamp: 2025-06-02 18:30:00, Merchant: Amazon.com, Amount: 75.20, Transaction Type: Online
+
+- Timestamp: 2025-05-28 12:15:00, Merchant: Uber, Amount: 22.00, Transaction Type: In-app
+
+- Timestamp: 2025-05-25 09:00:00, Merchant: Whole Foods, Amount: 120.80, Transaction Type: In-person
+
+- Timestamp: 2025-05-18 20:00:00, Merchant: Netflix, Amount: 15.49, Transaction Type: Online - Subscription
+
+
+
+TASK:1. Determine if the CURRENT TRANSACTION ALERT exhibits a high degree of similarity to any of the RECENTLY CONFIRMED GENUINE ALERTS based on: Merchant, Transaction Type, Amount (within +/-10% range), and Location.2. Classify the CURRENT TRANSACTION ALERT as either 'Likely Genuine' or 'Requires Further Analysis'.3. If 'Likely Genuine', provide a confidence score (High, Medium, Low) and a brief rationale (e.g., 'Matches 3 out of 4 key attributes with genuine transaction X from 2 days ago').4. Provide a HTML preview code with
+
+    - Classification heading in it with h4 size and start from left alignment and with respective red and green color
+
+    - Tabular format with check marks of acceptance and rejection with full width used in medium font size
+
+    - Add respective danger and acceptance color and styling in it with either red color or green color
+
+    - Don't provide any note in HTML Preview
+
+Respond with a JSON object:
+
+{{
+
+  "classification": "Likely Genuine" | "Requires Further Analysis",
+
+  "confidenceScore": "High" | "Medium" | "Low" | null,
+
+  "rationale": "brief explanation" | null,
+
+  "htmlContent: "HTML Preview of final result"
+
+}}
+
+Case 2: Medium Similarity (Likely Genuine - Medium Confidence)
+
+This case tests a similar merchant and transaction type but with a slightly different amount that still falls within the +/- 10% range, warranting a medium confidence score.
+
+JSON
+
+
+
+You are a financial fraud analysis AI assistant specializing in identifying genuine transaction patterns.
+
+Analyze the CURRENT TRANSACTION ALERT:
+
+- Timestamp: 2025-06-08 19:00:00
+
+- Merchant: Amazon.com
+
+- Amount: 82.50
+
+- Transaction Type: Online
+
+
+
+Compare it against the following RECENTLY CONFIRMED GENUINE ALERTS (last 30 days) for this user/segment:
+
+- Timestamp: 2025-06-05 10:00:00, Merchant: Starbucks, Amount: 15.50, Transaction Type: In-person
+
+- Timestamp: 2025-06-02 18:30:00, Merchant: Amazon.com, Amount: 75.20, Transaction Type: Online
+
+- Timestamp: 2025-05-28 12:15:00, Merchant: Uber, Amount: 22.00, Transaction Type: In-app
+
+- Timestamp: 2025-05-25 09:00:00, Merchant: Whole Foods, Amount: 120.80, Transaction Type: In-person
+
+- Timestamp: 2025-05-18 20:00:00, Merchant: Netflix, Amount: 15.49, Transaction Type: Online - Subscription
+
+
+
+TASK:1. Determine if the CURRENT TRANSACTION ALERT exhibits a high degree of similarity to any of the RECENTLY CONFIRMED GENUINE ALERTS based on: Merchant, Transaction Type, Amount (within +/-10% range), and Location.2. Classify the CURRENT TRANSACTION ALERT as either 'Likely Genuine' or 'Requires Further Analysis'.3. If 'Likely Genuine', provide a confidence score (High, Medium, Low) and a brief rationale (e.g., 'Matches 3 out of 4 key attributes with genuine transaction X from 2 days ago').4. Provide a HTML preview code with
+
+    - Classification heading in it with h4 size and start from left alignment and with respective red and green color
+
+    - Tabular format with check marks of acceptance and rejection with full width used in medium font size
+
+    - Add respective danger and acceptance color and styling in it with either red color or green color
+
+    - Don't provide any note in HTML Preview
+
+Respond with a JSON object:
+
+{{
+
+  "classification": "Likely Genuine" | "Requires Further Analysis",
+
+  "confidenceScore": "High" | "Medium" | "Low" | null,
+
+  "rationale": "brief explanation" | null,
+
+  "htmlContent: "HTML Preview of final result"
+
+}}
+
+Case 3: Low Similarity (Likely Genuine - Low Confidence)
+
+This scenario involves a matching merchant and transaction type, but the amount is at the very edge of the 10% variance, leading to a low confidence score.
+
+JSON
+
+
+
+You are a financial fraud analysis AI assistant specializing in identifying genuine transaction patterns.
+
+Analyze the CURRENT TRANSACTION ALERT:
+
+- Timestamp: 2025-06-08 13:00:00
+
+- Merchant: Whole Foods
+
+- Amount: 109.00
+
+- Transaction Type: In-person
+
+
+
+Compare it against the following RECENTLY CONFIRMED GENUINE ALERTS (last 30 days) for this user/segment:
+
+- Timestamp: 2025-06-05 10:00:00, Merchant: Starbucks, Amount: 15.50, Transaction Type: In-person
+
+- Timestamp: 2025-06-02 18:30:00, Merchant: Amazon.com, Amount: 75.20, Transaction Type: Online
+
+- Timestamp: 2025-05-28 12:15:00, Merchant: Uber, Amount: 22.00, Transaction Type: In-app
+
+- Timestamp: 2025-05-25 09:00:00, Merchant: Whole Foods, Amount: 120.80, Transaction Type: In-person
+
+- Timestamp: 2025-05-18 20:00:00, Merchant: Netflix, Amount: 15.49, Transaction Type: Online - Subscription
+
+
+
+TASK:1. Determine if the CURRENT TRANSACTION ALERT exhibits a high degree of similarity to any of the RECENTLY CONFIRMED GENUINE ALERTS based on: Merchant, Transaction Type, Amount (within +/-10% range), and Location.2. Classify the CURRENT TRANSACTION ALERT as either 'Likely Genuine' or 'Requires Further Analysis'.3. If 'Likely Genuine', provide a confidence score (High, Medium, Low) and a brief rationale (e.g., 'Matches 3 out of 4 key attributes with genuine transaction X from 2 days ago').4. Provide a HTML preview code with
+
+    - Classification heading in it with h4 size and start from left alignment and with respective red and green color
+
+    - Tabular format with check marks of acceptance and rejection with full width used in medium font size
+
+    - Add respective danger and acceptance color and styling in it with either red color or green color
+
+    - Don't provide any note in HTML Preview
+
+Respond with a JSON object:
+
+{{
+
+  "classification": "Likely Genuine" | "Requires Further Analysis",
+
+  "confidenceScore": "High" | "Medium" | "Low" | null,
+
+  "rationale": "brief explanation" | null,
+
+  "htmlContent: "HTML Preview of final result"
+
+}}
+
+Case 4: Mismatched Merchant (Requires Further Analysis)
+
+Here, the transaction type and amount are similar to a past genuine transaction, but the merchant is different, which should trigger a "Requires Further Analysis" classification.
+
+JSON
+
+
+
+You are a financial fraud analysis AI assistant specializing in identifying genuine transaction patterns.
+
+Analyze the CURRENT TRANSACTION ALERT:
+
+- Timestamp: 2025-06-08 14:30:00
+
+- Merchant: Lyft
+
+- Amount: 23.50
+
+- Transaction Type: In-app
+
+
+
+Compare it against the following RECENTLY CONFIRMED GENUINE ALERTS (last 30 days) for this user/segment:
+
+- Timestamp: 2025-06-05 10:00:00, Merchant: Starbucks, Amount: 15.50, Transaction Type: In-person
+
+- Timestamp: 2025-06-02 18:30:00, Merchant: Amazon.com, Amount: 75.20, Transaction Type: Online
+
+- Timestamp: 2025-05-28 12:15:00, Merchant: Uber, Amount: 22.00, Transaction Type: In-app
+
+- Timestamp: 2025-05-25 09:00:00, Merchant: Whole Foods, Amount: 120.80, Transaction Type: In-person
+
+- Timestamp: 2025-05-18 20:00:00, Merchant: Netflix, Amount: 15.49, Transaction Type: Online - Subscription
+
+
+
+TASK:1. Determine if the CURRENT TRANSACTION ALERT exhibits a high degree of similarity to any of the RECENTLY CONFIRMED GENUINE ALERTS based on: Merchant, Transaction Type, Amount (within +/-10% range), and Location.2. Classify the CURRENT TRANSACTION ALERT as either 'Likely Genuine' or 'Requires Further Analysis'.3. If 'Likely Genuine', provide a confidence score (High, Medium, Low) and a brief rationale (e.g., 'Matches 3 out of 4 key attributes with genuine transaction X from 2 days ago').4. Provide a HTML preview code with
+
+    - Classification heading in it with h4 size and start from left alignment and with respective red and green color
+
+    - Tabular format with check marks of acceptance and rejection with full width used in medium font size
+
+    - Add respective danger and acceptance color and styling in it with either red color or green color
+
+    - Don't provide any note in HTML Preview
+
+Respond with a JSON object:
+
+{{
+
+  "classification": "Likely Genuine" | "Requires Further Analysis",
+
+  "confidenceScore": "High" | "Medium" | "Low" | null,
+
+  "rationale": "brief explanation" | null,
+
+  "htmlContent: "HTML Preview of final result"
+
+}}
+
+Case 5: Mismatched Transaction Type (Requires Further Analysis)
+
+This test case has a similar merchant and amount but a different transaction type, a key indicator for further investigation.
+
+JSON
+
+
+
+You are a financial fraud analysis AI assistant specializing in identifying genuine transaction patterns.
+
+Analyze the CURRENT TRANSACTION ALERT:
+
+- Timestamp: 2025-06-08 21:00:00
+
+- Merchant: Netflix
+
+- Amount: 15.49
+
+- Transaction Type: In-person
+
+
+
+Compare it against the following RECENTLY CONFIRMED GENUINE ALERTS (last 30 days) for this user/segment:
+
+- Timestamp: 2025-06-05 10:00:00, Merchant: Starbucks, Amount: 15.50, Transaction Type: In-person
+
+- Timestamp: 2025-06-02 18:30:00, Merchant: Amazon.com, Amount: 75.20, Transaction Type: Online
+
+- Timestamp: 2025-05-28 12:15:00, Merchant: Uber, Amount: 22.00, Transaction Type: In-app
+
+- Timestamp: 2025-05-25 09:00:00, Merchant: Whole Foods, Amount: 120.80, Transaction Type: In-person
+
+- Timestamp: 2025-05-18 20:00:00, Merchant: Netflix, Amount: 15.49, Transaction Type: Online - Subscription
+
+
+
+TASK:1. Determine if the CURRENT TRANSACTION ALERT exhibits a high degree of similarity to any of the RECENTLY CONFIRMED GENUINE ALERTS based on: Merchant, Transaction Type, Amount (within +/-10% range), and Location.2. Classify the CURRENT TRANSACTION ALERT as either 'Likely Genuine' or 'Requires Further Analysis'.3. If 'Likely Genuine', provide a confidence score (High, Medium, Low) and a brief rationale (e.g., 'Matches 3 out of 4 key attributes with genuine transaction X from 2 days ago').4. Provide a HTML preview code with
+
+    - Classification heading in it with h4 size and start from left alignment and with respective red and green color
+
+    - Tabular format with check marks of acceptance and rejection with full width used in medium font size
+
+    - Add respective danger and acceptance color and styling in it with either red color or green color
+
+    - Don't provide any note in HTML Preview
+
+Respond with a JSON object:
+
+{{
+
+  "classification": "Likely Genuine" | "Requires Further Analysis",
+
+  "confidenceScore": "High" | "Medium" | "Low" | null,
+
+  "rationale": "brief explanation" | null,
+
+  "htmlContent: "HTML Preview of final result"
+
+}}
+
+Case 6: Amount Significantly Different (Requires Further Analysis)
+
+This tests the system's ability to flag a transaction where the amount is well outside the 10% tolerance, even if the merchant and transaction type match.
+
+JSON
+
+
+
+You are a financial fraud analysis AI assistant specializing in identifying genuine transaction patterns.
+
+Analyze the CURRENT TRANSACTION ALERT:
+
+- Timestamp: 2025-06-08 11:45:00
+
+- Merchant: Starbucks
+
+- Amount: 55.75
+
+- Transaction Type: In-person
+
+
+
+Compare it against the following RECENTLY CONFIRMED GENUINE ALERTS (last 30 days) for this user/segment:
+
+- Timestamp: 2025-06-05 10:00:00, Merchant: Starbucks, Amount: 15.50, Transaction Type: In-person
+
+- Timestamp: 2025-06-02 18:30:00, Merchant: Amazon.com, Amount: 75.20, Transaction Type: Online
+
+- Timestamp: 2025-05-28 12:15:00, Merchant: Uber, Amount: 22.00, Transaction Type: In-app
+
+- Timestamp: 2025-05-25 09:00:00, Merchant: Whole Foods, Amount: 120.80, Transaction Type: In-person
+
+- Timestamp: 2025-05-18 20:00:00, Merchant: Netflix, Amount: 15.49, Transaction Type: Online - Subscription
+
+
+
+TASK:1. Determine if the CURRENT TRANSACTION ALERT exhibits a high degree of similarity to any of the RECENTLY CONFIRMED GENUINE ALERTS based on: Merchant, Transaction Type, Amount (within +/-10% range), and Location.2. Classify the CURRENT TRANSACTION ALERT as either 'Likely Genuine' or 'Requires Further Analysis'.3. If 'Likely Genuine', provide a confidence score (High, Medium, Low) and a brief rationale (e.g., 'Matches 3 out of 4 key attributes with genuine transaction X from 2 days ago').4. Provide a HTML preview code with
+
+    - Classification heading in it with h4 size and start from left alignment and with respective red and green color
+
+    - Tabular format with check marks of acceptance and rejection with full width used in medium font size
+
+    - Add respective danger and acceptance color and styling in it with either red color or green color
+
+    - Don't provide any note in HTML Preview
+
+Respond with a JSON object:
+
+{{
+
+  "classification": "Likely Genuine" | "Requires Further Analysis",
+
+  "confidenceScore": "High" | "Medium" | "Low" | null,
+
+  "rationale": "brief explanation" | null,
+
+  "htmlContent: "HTML Preview of final result"
+
+}}
+
+Case 7: Completely New Transaction Pattern (Requires Further Analysis)
+
+This final case presents a transaction with a new merchant and a different spending pattern, which should be flagged for review as it doesn't match any historical data.
+
+JSON
+
+
+
+You are a financial fraud analysis AI assistant specializing in identifying genuine transaction patterns.
+
+Analyze the CURRENT TRANSACTION ALERT:
+
+- Timestamp: 2025-06-08 16:20:00
+
+- Merchant: Best Buy
+
+- Amount: 250.00
+
+- Transaction Type: In-person
+
+
+
+Compare it against the following RECENTLY CONFIRMED GENUINE ALERTS (last 30 days) for this user/segment:
+
+- Timestamp: 2025-06-05 10:00:00, Merchant: Starbucks, Amount: 15.50, Transaction Type: In-person
+
+- Timestamp: 2025-06-02 18:30:00, Merchant: Amazon.com, Amount: 75.20, Transaction Type: Online
+
+- Timestamp: 2025-05-28 12:15:00, Merchant: Uber, Amount: 22.00, Transaction Type: In-app
+
+- Timestamp: 2025-05-25 09:00:00, Merchant: Whole Foods, Amount: 120.80, Transaction Type: In-person
+
+- Timestamp: 2025-05-18 20:00:00, Merchant: Netflix, Amount: 15.49, Transaction Type: Online - Subscription
+
+
+
+TASK:1. Determine if the CURRENT TRANSACTION ALERT exhibits a high degree of similarity to any of the RECENTLY CONFIRMED GENUINE ALERTS based on: Merchant, Transaction Type, Amount (within +/-10% range), and Location.2. Classify the CURRENT TRANSACTION ALERT as either 'Likely Genuine' or 'Requires Further Analysis'.3. If 'Likely Genuine', provide a confidence score (High, Medium, Low) and a brief rationale (e.g., 'Matches 3 out of 4 key attributes with genuine transaction X from 2 days ago').4. Provide a HTML preview code with
+
+    - Classification heading in it with h4 size and start from left alignment and with respective red and green color
+
+    - Tabular format with check marks of acceptance and rejection with full width used in medium font size
+
+    - Add respective danger and acceptance color and styling in it with either red color or green color
+
+    - Don't provide any note in HTML Preview
+
+Respond with a JSON object:
+
+{{
+
+  "classification": "Likely Genuine" | "Requires Further Analysis",
+
+  "confidenceScore": "High" | "Medium" | "Low" | null,
+
+  "rationale": "brief explanation" | null,
+
+  "htmlContent: "HTML Preview of final result"
+
+}}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Connection Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6">
+        <h1 class="text-2xl font-bold mb-6">Custom LLM Connection Test</h1>
+        
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium mb-2">JWT Token</label>
+                <input 
+                    type="password" 
+                    id="token" 
+                    value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAyZDY2MTQ2LTVjYmYtNDEwZC1hNTlkLWJkMGQ4NjY3MzYxNCJ9.-rBBUXk5DqNk2eIN_5_SPfzuPX-brATzN_N6hi0QY5w"
+                    class="w-full px-3 py-2 border rounded-md"
+                >
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium mb-2">Test Message</label>
+                <textarea 
+                    id="message" 
+                    rows="3" 
+                    placeholder="Enter your test message..."
+                    class="w-full px-3 py-2 border rounded-md"
+                >Hello, can you help me test this connection?</textarea>
+            </div>
+            
+            <button 
+                onclick="testConnection()" 
+                id="testBtn"
+                class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 disabled:opacity-50"
+            >
+                Test Connection
+            </button>
+        </div>
+        
+        <div id="result" class="mt-6 hidden">
+            <h3 class="text-lg font-semibold mb-2">Response:</h3>
+            <div id="response" class="bg-gray-50 p-4 rounded-md border"></div>
+        </div>
+        
+        <div id="error" class="mt-6 hidden">
+            <h3 class="text-lg font-semibold mb-2 text-red-600">Error:</h3>
+            <div id="errorMsg" class="bg-red-50 p-4 rounded-md border border-red-200 text-red-700"></div>
+        </div>
+    </div>
+
+    <script>
+        async function testConnection() {
+            const token = document.getElementById('token').value;
+            const message = document.getElementById('message').value;
+            const testBtn = document.getElementById('testBtn');
+            const resultDiv = document.getElementById('result');
+            const errorDiv = document.getElementById('error');
+            
+            // Reset UI
+            testBtn.disabled = true;
+            testBtn.textContent = 'Testing...';
+            resultDiv.classList.add('hidden');
+            errorDiv.classList.add('hidden');
+            
+            try {
+                const response = await fetch('https://onegpt.fplinternal.in/api/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-4o',
+                        messages: [
+                            { role: 'system', content: 'You are a helpful assistant.' },
+                            { role: 'user', content: message }
+                        ],
+                        temperature: 0.1,
+                        max_tokens: 2000
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('response').innerHTML = `
+                        <div class="space-y-2">
+                            <div><strong>Status:</strong> <span class="text-green-600">Success</span></div>
+                            <div><strong>Model:</strong> ${data.model || 'gpt-4o'}</div>
+                            <div><strong>Response:</strong></div>
+                            <div class="bg-white p-3 rounded border">${data.choices[0].message.content}</div>
+                            <div class="text-sm text-gray-500">
+                                <strong>Tokens:</strong> ${data.usage?.total_tokens || 'N/A'} | 
+                                <strong>Time:</strong> ${Date.now() - startTime}ms
+                            </div>
+                        </div>
+                    `;
+                    resultDiv.classList.remove('hidden');
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${data.error?.message || 'Unknown error'}`);
+                }
+                
+            } catch (error) {
+                document.getElementById('errorMsg').innerHTML = `
+                    <div class="space-y-2">
+                        <div><strong>Error:</strong> ${error.message}</div>
+                        <div class="text-sm">Check console for more details</div>
+                    </div>
+                `;
+                errorDiv.classList.remove('hidden');
+                console.error('LLM Test Error:', error);
+            } finally {
+                testBtn.disabled = false;
+                testBtn.textContent = 'Test Connection';
+            }
+        }
+        
+        let startTime;
+        
+        // Override fetch to capture timing
+        const originalFetch = window.fetch;
+        window.fetch = function(...args) {
+            startTime = Date.now();
+            return originalFetch.apply(this, args);
+        };
+    </script>
+</body>
+</html>

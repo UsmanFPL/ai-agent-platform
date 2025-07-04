@@ -18,7 +18,7 @@ async def test_onegpt_direct():
     """Test direct connection to OneGPT API"""
     
     url = "https://onegpt.fplinternal.in/api/chat/completions"
-    token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAyZDY2MTQ2LTVjYmYtNDEwZC1hNTlkLWJkMGQ4NjY3MzYxNCJ9.-rBBUXk5DqNk2eIN_5_SPfzuPX-brATzN_N6hi0QY5w"
+    token = os.getenv("CUSTOM_LLM_API_KEY", "your-jwt-token-here")
     
     headers = {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ async def test_onegpt_with_tams():
     # Set environment variables for OneGPT
     os.environ["CUSTOM_LLM_URL"] = "https://onegpt.fplinternal.in/api/chat/completions"
     os.environ["CUSTOM_LLM_MODEL"] = "gpt-4o"
-    os.environ["CUSTOM_LLM_API_KEY"] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAyZDY2MTQ2LTVjYmYtNDEwZC1hNTlkLWJkMGQ4NjY3MzYxNCJ9.-rBBUXk5DqNk2eIN_5_SPfzuPX-brATzN_N6hi0QY5w"
+    os.environ["CUSTOM_LLM_API_KEY"] = os.getenv("CUSTOM_LLM_API_KEY", "your-jwt-token-here")
     
     # Clear other LLM keys to force custom LLM usage
     os.environ["OPENAI_API_KEY"] = ""

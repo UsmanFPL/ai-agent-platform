@@ -40,7 +40,7 @@
 - **Database:** PostgreSQL + Vector DB (Chroma/Pinecone)
 - **Backend:** Python (FastAPI)
 - **Frontend:** React/Next.js
-- **Infrastructure:** Docker, Kubernetes
+- **Infrastructure:** Docker/Colima, Kubernetes
 
 ---
 
@@ -705,7 +705,11 @@ The AI Agent Platform is now fully operational and ready for internal deployment
 git clone https://github.com/UsmanFPL/ai-agent-platform.git
 cd ai-agent-platform
 
-# Start entire platform
+# Option 1: Colima (Corporate/macOS)
+brew install colima docker docker-compose
+./run_colima.sh
+
+# Option 2: Standard Docker
 ./run.sh
 
 # Access URLs:

@@ -15,7 +15,28 @@ Production-ready implementation of TAMS (Transaction Alert Monitoring System) AI
 
 ## 🚀 Quick Start
 
-### 1. Basic Demo (No API Keys Required)
+### Option A: Colima (Corporate/macOS)
+```bash
+# Install Colima
+brew install colima docker docker-compose
+
+# Clone and start
+git clone https://github.com/UsmanFPL/ai-agent-platform.git
+cd ai-agent-platform
+./run_colima.sh
+```
+
+### Option B: Standard Docker
+```bash
+# Clone and start
+git clone https://github.com/UsmanFPL/ai-agent-platform.git
+cd ai-agent-platform
+./run.sh
+```
+
+### Option C: Python Only
+
+#### 1. Basic Demo (No API Keys Required)
 ```bash
 python3 run_tams.py
 ```

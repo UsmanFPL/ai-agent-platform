@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  flowise:
+    image: flowiseai/flowise:latest
+    restart: always
+    environment:
+      - PORT=3001
+      - DATABASE_PATH=/root/.flowise
+      - APIKEY_PATH=/root/.flowise
+      - SECRETKEY_PATH=/root/.flowise
+      - LOG_LEVEL=info
+      - LOG_PATH=/root/.flowise/logs
+      - BLOB_STORAGE_PATH=/root/.flowise/storage
+    ports:
+      - "3001:3001"
+    volumes:
+      - flowise_data:/root/.flowise
+    command: /bin/sh -c "sleep 3; flowise start"
+    networks:
+      - ai-agent-network
+
+volumes:
+  flowise_data:
+
+networks:
+  ai-agent-network:
+    external: true

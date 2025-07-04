@@ -1,0 +1,88 @@
+version: '3.8'
+
+networks:
+  ai-agent-network:
+    driver: bridge
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ai_agent_platform
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ai-agent-network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - ai-agent-network
+
+  # LangFuse (Observability)
+  langfuse:
+    image: langfuse/langfuse:latest
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/langfuse
+      NEXTAUTH_SECRET: your_secret_here
+      SALT: your_salt_here
+      NEXTAUTH_URL: http://localhost:3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    networks:
+      - ai-agent-network
+
+  # FlowiseAI (No-Code Builder)
+  flowise:
+    image: flowiseai/flowise:latest
+    restart: always
+    environment:
+      - PORT=3001
+      - DATABASE_PATH=/root/.flowise
+      - APIKEY_PATH=/root/.flowise
+      - SECRETKEY_PATH=/root/.flowise
+      - LOG_LEVEL=info
+    ports:
+      - "3001:3001"
+    volumes:
+      - flowise_data:/root/.flowise
+    networks:
+      - ai-agent-network
+
+  # AI Agent Platform API
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/ai_agent_platform
+      REDIS_URL: redis://redis:6379
+      LANGFUSE_HOST: http://langfuse:3000
+      FLOWISE_URL: http://flowise:3001
+    depends_on:
+      - postgres
+      - redis
+      - langfuse
+      - flowise
+    volumes:
+      - .:/app
+    command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - ai-agent-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  flowise_data:

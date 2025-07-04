@@ -1,0 +1,298 @@
+{
+  "nodes": [
+    {
+      "id": "start_node",
+      "position": { "x": 100, "y": 100 },
+      "type": "customNode",
+      "data": {
+        "id": "start_node",
+        "label": "Transaction Alert Input",
+        "name": "transactionInput",
+        "type": "Input",
+        "category": "Input/Output",
+        "description": "Receives transaction alert data for analysis",
+        "inputParams": [
+          {
+            "label": "Timestamp",
+            "name": "timestamp",
+            "type": "string",
+            "description": "Transaction timestamp"
+          },
+          {
+            "label": "Merchant",
+            "name": "merchant", 
+            "type": "string",
+            "description": "Merchant name"
+          },
+          {
+            "label": "Amount",
+            "name": "amount",
+            "type": "number",
+            "description": "Transaction amount"
+          },
+          {
+            "label": "Transaction Type",
+            "name": "transaction_type",
+            "type": "string",
+            "description": "Card-Present or Card-Not-Present"
+          },
+          {
+            "label": "User ID",
+            "name": "user_id",
+            "type": "string",
+            "description": "User identifier"
+          }
+        ]
+      },
+      "width": 300,
+      "height": 200
+    },
+    {
+      "id": "stage1_node",
+      "position": { "x": 500, "y": 50 },
+      "type": "customNode",
+      "data": {
+        "id": "stage1_node",
+        "label": "Stage 1: Genuine Alert Correlation",
+        "name": "genuineCorrelation",
+        "type": "LLMChain",
+        "category": "Analysis",
+        "description": "Compares current alert against recent genuine transactions",
+        "inputParams": [
+          {
+            "label": "LLM Model",
+            "name": "model",
+            "type": "BaseLLM",
+            "description": "Language model for analysis"
+          }
+        ]
+      },
+      "width": 400,
+      "height": 300
+    },
+    {
+      "id": "stage2_node", 
+      "position": { "x": 500, "y": 400 },
+      "type": "customNode",
+      "data": {
+        "id": "stage2_node",
+        "label": "Stage 2: Behavioral Anomaly Detection",
+        "name": "behavioralAnalysis",
+        "type": "LLMChain",
+        "category": "Analysis",
+        "description": "Analyzes transaction against user's behavioral patterns",
+        "inputParams": [
+          {
+            "label": "LLM Model",
+            "name": "model",
+            "type": "BaseLLM",
+            "description": "Language model for analysis"
+          }
+        ]
+      },
+      "width": 400,
+      "height": 300
+    },
+    {
+      "id": "data_fetch_node",
+      "position": { "x": 100, "y": 350 },
+      "type": "customNode",
+      "data": {
+        "id": "data_fetch_node",
+        "label": "Fetch User Data",
+        "name": "dataFetcher",
+        "type": "Tool",
+        "category": "Data",
+        "description": "Fetches genuine alerts, transaction history, and user profile",
+        "inputParams": [
+          {
+            "label": "Database Connection",
+            "name": "database",
+            "type": "string",
+            "description": "Database connection string"
+          },
+          {
+            "label": "User ID",
+            "name": "user_id",
+            "type": "string",
+            "description": "User identifier for data lookup"
+          }
+        ]
+      },
+      "width": 300,
+      "height": 200
+    },
+    {
+      "id": "stage3_node",
+      "position": { "x": 900, "y": 225 },
+      "type": "customNode", 
+      "data": {
+        "id": "stage3_node",
+        "label": "Stage 3: Comprehensive Risk Assessment",
+        "name": "riskAssessment",
+        "type": "LLMChain",
+        "category": "Analysis",
+        "description": "Performs comprehensive risk assessment with SOP integration",
+        "inputParams": [
+          {
+            "label": "LLM Model",
+            "name": "model",
+            "type": "BaseLLM",
+            "description": "Language model for analysis"
+          }
+        ]
+      },
+      "width": 400,
+      "height": 300
+    },
+    {
+      "id": "final_decision_node",
+      "position": { "x": 1350, "y": 225 },
+      "type": "customNode",
+      "data": {
+        "id": "final_decision_node",
+        "label": "Final Recommendation Engine",
+        "name": "finalDecision",
+        "type": "Function",
+        "category": "Logic",
+        "description": "Combines all analysis stages to generate final recommendation",
+        "inputParams": [
+          {
+            "label": "Stage 1 Result",
+            "name": "stage1_result",
+            "type": "object",
+            "description": "Genuine correlation analysis result"
+          },
+          {
+            "label": "Stage 2 Result", 
+            "name": "stage2_result",
+            "type": "object",
+            "description": "Behavioral analysis result"
+          },
+          {
+            "label": "Stage 3 Result",
+            "name": "stage3_result", 
+            "type": "object",
+            "description": "Risk assessment result"
+          }
+        ]
+      },
+      "width": 300,
+      "height": 200
+    },
+    {
+      "id": "output_node",
+      "position": { "x": 1700, "y": 225 },
+      "type": "customNode",
+      "data": {
+        "id": "output_node",
+        "label": "TAMS Analysis Output",
+        "name": "analysisOutput",
+        "type": "Output",
+        "category": "Input/Output",
+        "description": "Final TAMS analysis result with HTML visualization",
+        "inputParams": [
+          {
+            "label": "Analysis Result",
+            "name": "result",
+            "type": "object",
+            "description": "Complete TAMS analysis result"
+          }
+        ]
+      },
+      "width": 300,
+      "height": 200
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge1",
+      "source": "start_node",
+      "target": "data_fetch_node",
+      "sourceHandle": "start_node-output",
+      "targetHandle": "data_fetch_node-input"
+    },
+    {
+      "id": "edge2", 
+      "source": "start_node",
+      "target": "stage1_node",
+      "sourceHandle": "start_node-output",
+      "targetHandle": "stage1_node-input"
+    },
+    {
+      "id": "edge3",
+      "source": "data_fetch_node",
+      "target": "stage1_node",
+      "sourceHandle": "data_fetch_node-output",
+      "targetHandle": "stage1_node-data"
+    },
+    {
+      "id": "edge4",
+      "source": "start_node", 
+      "target": "stage2_node",
+      "sourceHandle": "start_node-output",
+      "targetHandle": "stage2_node-input"
+    },
+    {
+      "id": "edge5",
+      "source": "data_fetch_node",
+      "target": "stage2_node", 
+      "sourceHandle": "data_fetch_node-output",
+      "targetHandle": "stage2_node-data"
+    },
+    {
+      "id": "edge6",
+      "source": "stage1_node",
+      "target": "stage3_node",
+      "sourceHandle": "stage1_node-output",
+      "targetHandle": "stage3_node-stage1"
+    },
+    {
+      "id": "edge7",
+      "source": "stage2_node",
+      "target": "stage3_node",
+      "sourceHandle": "stage2_node-output", 
+      "targetHandle": "stage3_node-stage2"
+    },
+    {
+      "id": "edge8",
+      "source": "data_fetch_node",
+      "target": "stage3_node",
+      "sourceHandle": "data_fetch_node-output",
+      "targetHandle": "stage3_node-data"
+    },
+    {
+      "id": "edge9",
+      "source": "stage1_node",
+      "target": "final_decision_node",
+      "sourceHandle": "stage1_node-output",
+      "targetHandle": "final_decision_node-stage1"
+    },
+    {
+      "id": "edge10",
+      "source": "stage2_node", 
+      "target": "final_decision_node",
+      "sourceHandle": "stage2_node-output",
+      "targetHandle": "final_decision_node-stage2"
+    },
+    {
+      "id": "edge11",
+      "source": "stage3_node",
+      "target": "final_decision_node",
+      "sourceHandle": "stage3_node-output",
+      "targetHandle": "final_decision_node-stage3"
+    },
+    {
+      "id": "edge12",
+      "source": "final_decision_node",
+      "target": "output_node",
+      "sourceHandle": "final_decision_node-output",
+      "targetHandle": "output_node-input"
+    }
+  ],
+  "viewport": {
+    "x": 0,
+    "y": 0,
+    "zoom": 0.8
+  }
+}

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Platform - Enterprise Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <i class="fas fa-robot text-blue-600 text-2xl mr-3"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">AI Agent Platform</h1>
+                        <p class="text-sm text-gray-500">Enterprise Intelligence & Automation</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center text-sm text-gray-500">
+                        <div class="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+                        All Systems Operational
+                    </div>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                        <i class="fas fa-plus mr-2"></i>New Agent
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex space-x-8">
+                <button onclick="showTab('dashboard')" class="tab-btn py-4 px-1 border-b-2 border-blue-500 text-blue-600 font-medium">
+                    <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                </button>
+                <button onclick="showTab('agents')" class="tab-btn py-4 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-robot mr-2"></i>Agents
+                </button>
+                <button onclick="showTab('tams')" class="tab-btn py-4 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-shield-alt mr-2"></i>TAMS Analysis
+                </button>
+                <button onclick="showTab('workflows')" class="tab-btn py-4 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-project-diagram mr-2"></i>Workflows
+                </button>
+                <button onclick="showTab('monitoring')" class="tab-btn py-4 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-chart-line mr-2"></i>Monitoring
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Dashboard Tab -->
+        <div id="dashboard-tab" class="tab-content">
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-robot text-blue-600 text-2xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Total Agents</p>
+                            <p class="text-2xl font-semibold text-gray-900">12</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-play text-green-600 text-2xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Active Agents</p>
+                            <p class="text-2xl font-semibold text-gray-900">8</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-chart-bar text-purple-600 text-2xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Executions Today</p>
+                            <p class="text-2xl font-semibold text-gray-900">1,247</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-clock text-orange-600 text-2xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-500">Avg Response</p>
+                            <p class="text-2xl font-semibold text-gray-900">1.8s</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Agent Performance</h3>
+                    <canvas id="performanceChart" width="400" height="200"></canvas>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Platform Stack Status</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-link text-green-600 mr-3"></i>
+                                <span class="font-medium">LangChain Foundation</span>
+                            </div>
+                            <span class="text-green-600 font-semibold">Operational</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-project-diagram text-green-600 mr-3"></i>
+                                <span class="font-medium">LangGraph Orchestration</span>
+                            </div>
+                            <span class="text-green-600 font-semibold">Operational</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-eye text-green-600 mr-3"></i>
+                                <span class="font-medium">FlowiseAI Builder</span>
+                            </div>
+                            <span class="text-green-600 font-semibold">Operational</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-users text-green-600 mr-3"></i>
+                                <span class="font-medium">CrewAI Multi-Agent</span>
+                            </div>
+                            <span class="text-green-600 font-semibold">Operational</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-chart-line text-green-600 mr-3"></i>
+                                <span class="font-medium">LangFuse Monitoring</span>
+                            </div>
+                            <span class="text-green-600 font-semibold">Operational</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agents Tab -->
+        <div id="agents-tab" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-900">Agent Management</h2>
+                </div>
+                <div class="divide-y divide-gray-200">
+                    <div class="px-6 py-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 mr-4">
+                                    <i class="fas fa-shield-alt text-red-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-900">TAMS AI-Assist</h3>
+                                    <p class="text-sm text-gray-500">Automation Agent • Fraud Detection</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="text-right">
+                                    <p class="text-sm text-gray-900">247 executions today</p>
+                                    <p class="text-xs text-gray-500">Last: 2 minutes ago</p>
+                                </div>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    Active
+                                </span>
+                                <button class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 mr-4">
+                                    <i class="fas fa-envelope text-blue-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-900">Email Automation Agent</h3>
+                                    <p class="text-sm text-gray-500">Automation Agent • Communication</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="text-right">
+                                    <p class="text-sm text-gray-900">89 executions today</p>
+                                    <p class="text-xs text-gray-500">Last: 15 minutes ago</p>
+                                </div>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    Active
+                                </span>
+                                <button class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 mr-4">
+                                    <i class="fas fa-file-alt text-purple-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-900">Document Processing Assistant</h3>
+                                    <p class="text-sm text-gray-500">Assistive Agent • Data Extraction</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="text-right">
+                                    <p class="text-sm text-gray-900">34 executions today</p>
+                                    <p class="text-xs text-gray-500">Last: 1 hour ago</p>
+                                </div>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                    Idle
+                                </span>
+                                <button class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAMS Tab -->
+        <div id="tams-tab" class="tab-content hidden">
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">TAMS Fraud Analysis</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Merchant</label>
+                        <input type="text" id="tams-merchant" value="Unknown Online Store" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Amount ($)</label>
+                        <input type="number" id="tams-amount" value="299.99" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Transaction Type</label>
+                        <select id="tams-type" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="Card-Not-Present">Card-Not-Present</option>
+                            <option value="Card-Present">Card-Present</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">User ID</label>
+                        <input type="text" id="tams-user" value="user_12345" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+
+                <button onclick="runTAMSAnalysis()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 mb-6">
+                    <i class="fas fa-play mr-2"></i>Run TAMS Analysis
+                </button>
+
+                <div id="tams-result" class="hidden"></div>
+            </div>
+        </div>
+
+        <!-- Workflows Tab -->
+        <div id="workflows-tab" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">FlowiseAI Visual Builder</h3>
+                    <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                        <div class="flex items-center justify-center h-32">
+                            <div class="text-center">
+                                <i class="fas fa-project-diagram text-4xl text-gray-400 mb-2"></i>
+                                <p class="text-gray-600">Visual Workflow Designer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="openFlowiseAI()" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+                        Open FlowiseAI Builder
+                    </button>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Workflow Templates</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 border rounded-lg">
+                            <div>
+                                <h4 class="font-medium">TAMS Analysis Workflow</h4>
+                                <p class="text-sm text-gray-500">3-stage fraud detection</p>
+                            </div>
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between p-3 border rounded-lg">
+                            <div>
+                                <h4 class="font-medium">Employee Onboarding</h4>
+                                <p class="text-sm text-gray-500">Multi-agent crew workflow</p>
+                            </div>
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between p-3 border rounded-lg">
+                            <div>
+                                <h4 class="font-medium">Document Processing</h4>
+                                <p class="text-sm text-gray-500">RAG-enabled extraction</p>
+                            </div>
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monitoring Tab -->
+        <div id="monitoring-tab" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">LangFuse Observability</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Total Traces Today</span>
+                            <span class="font-semibold">1,247</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Average Latency</span>
+                            <span class="font-semibold">1.8s</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Success Rate</span>
+                            <span class="font-semibold text-green-600">99.2%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Cost Today</span>
+                            <span class="font-semibold">$24.67</span>
+                        </div>
+                    </div>
+                    <button onclick="openLangFuse()" class="w-full mt-4 bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">
+                        Open LangFuse Dashboard
+                    </button>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">System Health</h3>
+                    <canvas id="healthChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Tab Management
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Remove active state from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'text-blue-600');
+                btn.classList.add('border-transparent', 'text-gray-500');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.remove('hidden');
+            
+            // Add active state to clicked button
+            event.target.classList.remove('border-transparent', 'text-gray-500');
+            event.target.classList.add('border-blue-500', 'text-blue-600');
+        }
+
+        // TAMS Analysis
+        async function runTAMSAnalysis() {
+            const result = document.getElementById('tams-result');
+            result.innerHTML = '<div class="bg-blue-50 border border-blue-200 rounded-lg p-4"><div class="flex items-center"><i class="fas fa-spinner fa-spin text-blue-600 mr-2"></i><span class="text-blue-800">Analyzing transaction...</span></div></div>';
+            result.classList.remove('hidden');
+            
+            // Simulate analysis
+            setTimeout(() => {
+                const riskScore = Math.floor(Math.random() * 10) + 1;
+                const classification = riskScore >= 7 ? 'High Priority Review' : riskScore >= 4 ? 'Medium Priority Review' : 'Low Risk';
+                const confidence = ['High', 'Medium', 'Low'][Math.floor(Math.random() * 3)];
+                
+                result.innerHTML = `
+                    <div class="bg-white border rounded-lg p-6">
+                        <h3 class="text-lg font-semibold mb-4">Analysis Results</h3>
+                        <div class="grid grid-cols-3 gap-4 text-center mb-6">
+                            <div>
+                                <div class="text-3xl font-bold ${riskScore >= 7 ? 'text-red-600' : riskScore >= 4 ? 'text-yellow-600' : 'text-green-600'}">${riskScore}/10</div>
+                                <div class="text-sm text-gray-500">Risk Score</div>
+                            </div>
+                            <div>
+                                <div class="font-semibold">${classification}</div>
+                                <div class="text-sm text-gray-500">Classification</div>
+                            </div>
+                            <div>
+                                <div class="font-semibold">${confidence}</div>
+                                <div class="text-sm text-gray-500">Confidence</div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2">Stage 1: Genuine Correlation</h4>
+                                <p class="text-sm text-gray-600">No similar genuine transactions found in recent history</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2">Stage 2: Behavioral Analysis</h4>
+                                <p class="text-sm text-gray-600">Transaction shows deviation from user patterns</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2">Stage 3: Risk Assessment</h4>
+                                <p class="text-sm text-gray-600">Multiple risk factors identified</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }, 2000);
+        }
+
+        // External Links
+        function openFlowiseAI() {
+            window.open('http://localhost:3001', '_blank');
+        }
+
+        function openLangFuse() {
+            window.open('http://localhost:3000', '_blank');
+        }
+
+        // Initialize Charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Performance Chart
+            const ctx1 = document.getElementById('performanceChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                    datasets: [{
+                        label: 'Executions',
+                        data: [45, 89, 156, 234, 189, 167],
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Health Chart
+            const ctx2 = document.getElementById('healthChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Healthy', 'Warning', 'Error'],
+                    datasets: [{
+                        data: [92, 6, 2],
+                        backgroundColor: [
+                            'rgb(34, 197, 94)',
+                            'rgb(251, 191, 36)',
+                            'rgb(239, 68, 68)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        });
+    </script>
+</body>
+</html>

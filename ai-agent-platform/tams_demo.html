@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAMS AI-Assist Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        .alert-card { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .stage-card { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .stage-title { color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px; margin-bottom: 15px; }
+        .risk-score { text-align: center; margin: 20px 0; }
+        .risk-circle { width: 80px; height: 80px; border-radius: 50%; background-color: #dc3545; color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; }
+        .final-recommendation { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); color: white; padding: 20px; border-radius: 10px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+        .metric { text-align: center; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 5px; }
+        .status-badge { padding: 5px 15px; border-radius: 20px; font-weight: bold; display: inline-block; }
+        .high-risk { background-color: #dc3545; color: white; }
+        .medium-risk { background-color: #ffc107; color: black; }
+        .low-risk { background-color: #28a745; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 TAMS AI-Assist - Transaction Analysis Demo</h1>
+            <p>3-Stage Fraud Detection System v1.1</p>
+        </div>
+        
+        <div class="alert-card">
+            <h2>📊 Transaction Alert Details</h2>
+            <div class="grid">
+                <div class="metric">
+                    <h3>Merchant</h3>
+                    <p><strong>Unknown Online Store</strong></p>
+                </div>
+                <div class="metric">
+                    <h3>Amount</h3>
+                    <p><strong>$299.99</strong></p>
+                </div>
+                <div class="metric">
+                    <h3>Type</h3>
+                    <p><strong>Card-Not-Present</strong></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid">
+            <div class="stage-card">
+                <h2 class="stage-title">🎯 Stage 1: Genuine Alert Correlation</h2>
+                
+            <h4 style="color: red; text-align: left;">⚠️ Requires Further Analysis</h4>
+            <table style="width: 100%; font-size: medium;">
+                <tr><td>✅ Merchant Match</td><td style="color: red;">❌ No Match</td></tr>
+                <tr><td>✅ Amount Range</td><td style="color: red;">❌ Outside Range</td></tr>
+                <tr><td>✅ Transaction Type</td><td style="color: green;">✅ Match</td></tr>
+            </table>
+            
+                <p><strong>Confidence:</strong> Medium</p>
+                <p><strong>Rationale:</strong> No similar genuine transactions found in recent 24+ hour history</p>
+            </div>
+            
+            <div class="stage-card">
+                <h2 class="stage-title">📊 Stage 2: Behavioral Anomaly Detection</h2>
+                
+            <h4 style="color: black; font-weight: bold;">Anomaly Rating: <span style="color: red;">High</span></h4>
+            <ul style="font-size: small;">
+                <li>New merchant not seen in 3-month history</li>
+                <li>Transaction amount 3x higher than user average</li>
+                <li>Unusual time of day for this user</li>
+                <li>Card-not-present transaction (user typically uses card-present)</li>
+            </ul>
+            <p style="font-style: italic; font-size: small;">Transaction shows significant deviation from established user patterns across multiple dimensions</p>
+            
+            </div>
+            
+            <div class="stage-card">
+                <h2 class="stage-title">⚖️ Stage 3: Comprehensive Risk Assessment</h2>
+                
+            <div style="text-align: center;">
+                <div style="width: 60px; height: 60px; border-radius: 50%; background-color: red; color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold;">8</div>
+            </div>
+            <h4 style="color: black; font-weight: bold;">Key Findings</h4>
+            <ul style="font-size: small;">
+                <li>High-value transaction to unknown merchant</li>
+                <li>Multiple behavioral anomalies detected</li>
+                <li>Card-not-present transaction increases fraud risk</li>
+            </ul>
+            <h4 style="color: black; font-weight: bold;">Recommendations</h4>
+            <ul style="font-size: small;">
+                <li>Immediate manual review required</li>
+                <li>Contact customer for transaction verification</li>
+                <li>Consider temporary card restriction pending verification</li>
+            </ul>
+            <h4 style="color: black; font-weight: bold;">Risk Factors</h4>
+            <ul style="font-size: small;">
+                <li>New merchant</li>
+                <li>Above-average transaction amount</li>
+                <li>Unusual transaction time</li>
+                <li>Online transaction type</li>
+            </ul>
+            
+            </div>
+        </div>
+        
+        <div class="final-recommendation">
+            <h2>🚨 Final Recommendation</h2>
+            <div class="grid">
+                <div class="metric">
+                    <h3>Classification</h3>
+                    <span class="status-badge high-risk">High Priority Review</span>
+                </div>
+                <div class="metric">
+                    <h3>Risk Score</h3>
+                    <div class="risk-score">
+                        <div class="risk-circle">8</div>
+                    </div>
+                </div>
+                <div class="metric">
+                    <h3>Confidence</h3>
+                    <span class="status-badge high-risk">High</span>
+                </div>
+            </div>
+            
+            <h3>📝 Recommended Actions:</h3>
+            <ul>
+                <li>Immediate manual review required</li><li>Contact customer for verification if needed</li><li>Consider temporary card block if risk score > 8</li>
+            </ul>
+        </div>
+        
+        <div class="alert-card">
+            <h2>⚡ Performance Metrics</h2>
+            <div class="grid">
+                <div class="metric">
+                    <h3>Execution Time</h3>
+                    <p><strong>1250.5ms</strong></p>
+                </div>
+                <div class="metric">
+                    <h3>Version</h3>
+                    <p><strong>v1.1</strong></p>
+                </div>
+                <div class="metric">
+                    <h3>Status</h3>
+                    <span class="status-badge low-risk">COMPLETED</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="alert-card">
+            <h2>🔧 Integration Ready</h2>
+            <p>This TAMS AI-Assist system is ready for integration with:</p>
+            <ul>
+                <li><strong>Frappe ERP:</strong> Direct API integration available</li>
+                <li><strong>FlowiseAI:</strong> Visual no-code workflow builder</li>
+                <li><strong>REST APIs:</strong> Standard HTTP endpoints</li>
+                <li><strong>Webhooks:</strong> Real-time alert processing</li>
+            </ul>
+            
+            <h3>🚀 Next Steps:</h3>
+            <ol>
+                <li>Configure LLM API keys (OpenAI, Anthropic, etc.)</li>
+                <li>Connect to your transaction database</li>
+                <li>Customize prompts for your specific use case</li>
+                <li>Deploy to production environment</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>
